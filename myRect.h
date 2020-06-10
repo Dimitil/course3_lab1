@@ -4,7 +4,10 @@ class Rect{
 
 	public:
 		Rect(int left=0, int right=0, int top=0, int bottom=0);
-
+		
+		Rect(const Rect &r);
 
 		void InflateRect(int fl_left, int fl_right, int fl_top, int fl_bottom);
+
+		void InflateRect(int fl_first=1, int fl_second=1);
 };
