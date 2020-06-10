@@ -111,8 +111,9 @@ using namespace std;
 	//который "достает" значения private-переменных класса.
 	//Вызовите созданный метод, проверьте корректность. 
 	
-	r.GetAll();
+	//r.GetAll();
 
+	r.PrintAll();
 	stop
 	}
 */
@@ -134,7 +135,8 @@ using namespace std;
 	{
 
 		Rect r1(1,2,3,4), r2(5,6,7,8),r3;
-		r3= BoundingRect(r1, r2);
+		r3= BoundingRect(r1, r2);		//WATCH THIS
+			
 	stop
 	
 	//Задание 4а. Передача объектов по ссылке.
@@ -143,7 +145,7 @@ using namespace std;
 	//Вызываются ли конструкторы при передаче параметров?
 	
 
-	r3 = BoundingRect2(r1, r2);
+	r3 = BoundingRect2(r1, r2);		//	WATCH THIS
 	stop
 	}
 
@@ -169,7 +171,7 @@ using namespace std;
 				Rect r5(i,i,i,i);
 			}
 		}
-		delete pR;	
+		delete pR;	//WATCH THIS	
 		stop
 	}
 */

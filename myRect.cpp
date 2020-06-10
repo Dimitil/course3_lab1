@@ -1,5 +1,8 @@
 #include "myRect.h"
 #include <iostream>
+#include <algorithm>
+
+
 
 Rect::Rect(const Rect &r)
 {
@@ -9,6 +12,9 @@ Rect::Rect(const Rect &r)
 		m_top    = r.m_top;
 		m_bottom = r.m_bottom;
 }
+
+
+//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
 
 Rect::Rect(int left, int right, int top, int bottom)
 {
@@ -31,6 +37,12 @@ Rect::Rect(int left, int right, int top, int bottom)
 	}
 }
 
+
+
+//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+
+
+
 void Rect::InflateRect(int fl_left, int fl_right, int fl_top, int fl_bottom)
 {
 	m_top    += (fl_left+fl_right);
@@ -40,21 +52,22 @@ void Rect::InflateRect(int fl_left, int fl_right, int fl_top, int fl_bottom)
 }
 
 
-void Rect::InflateRect(int fl_first=1, int fl_second=1)
+//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+
+
+void Rect::InflateRect(int length=1, int width=1)
 {
 
-	InflateRect(fl_first, fl_second, 0, 0);
+	InflateRect(length, length, width, width);
 
 }
 
-void Rect::SetAll(int left, int right, int top, int bottom)
-{
-	if
-	m_left=left;
-	m_right=right;
-	m_top=top;
-	m_bottom=bottom;
-}
+
+
+
+//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+
+
 
 void Rect::SetAll(int left, int right, int top, int bottom)
 {
@@ -73,10 +86,75 @@ void Rect::SetAll(int left, int right, int top, int bottom)
 }
 
 
-void Rect::GetAll()
+
+
+
+//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+
+
+
+
+void Rect::PrintAll()
 {
-	std::cout<<'\n'<<"m_left = "  <<m_left<<'\n';
-	std::cout<<'\n'<<"m_right = " <<m_right<<'\n';
-	std::cout<<'\n'<<"m_top   = " <<m_top<<'\n';
-	std::cout<<'\n'<<"m_bottom = "<<m_bottom<<'\n';
+	std::cout<<'\n'<<"m_left = "  <<GetLeft()  <<'\n';
+	std::cout<<'\n'<<"m_right = " <<GetRight() <<'\n';
+	std::cout<<'\n'<<"m_top   = " <<GetTop()   <<'\n';
+	std::cout<<'\n'<<"m_bottom = "<<GetBottom()<<'\n';
+}
+
+
+
+
+//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+
+
+
+
+void Rect::BoundingRect(Rect rFirst, Rect rSecond) //метод класса
+{
+	int length,  width;
+
+	legth = max(rFirst.Top, rFirst.Bottom) + max(rSecond.Top, rSecond.Bottom);//sum of maximums
+
+	width = max(rFirst.Left, rFirst.Right, rSecond.Left, rSecond.Right);	//single max
+
+	SetAll(width, width, length, length);
+}
+
+
+
+
+//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+
+
+
+
+Rect BoundingRect2(Rect &rFirst, Rect &rSecond) //глобальная функция 2 
+{
+	int length,  width;
+
+	legth = max(rFirst.GetTop(), rFirst.GetBottom()) + max(rSecond.GetTop(), rSecond.GetBottom());//sum of maximums
+
+	width = max(rFirst.GetLeft(), rFirst.GetRight(),rSecond.GetLeft(),rSecond.GetRight);	//single max
+
+	return Rect(leght,length, width, width);
+}
+
+
+
+
+//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+
+
+
+
+Rect BoundingRect(Rect rFirst, Rect rSecond) //глобальная функция
+{
+	int length,  width;
+
+	legth = max(rFirst.GetTop(), rFirst.GetBottom()) + max(rSecond.GetTop(), rSecond.GetBottom());//sum of maximums
+
+	width = max(rFirst.GetLeft(), rFirst.GetRight(),rSecond.GetLeft(),rSecond.GetRight);	//single max
+
+	return Rect(leght,length, width, width);
 }

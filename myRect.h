@@ -11,7 +11,23 @@ class Rect{
 
 		void InflateRect(int fl_first=1, int fl_second=1);
 
+
 		void SetAll(int left, int right, int top, int bottom);
+
 		
-		void GetAll();
+		int GetLeft()	{return m_left;}
+
+		int GetRight()	{return m_rght}
+
+		int GetBottom()	{return m_bottom;}
+		
+		int GetTop()	{return m_top;}
+
+		void PrintAll();
+
+		void BoundingRect(Rect rFirst, Rect rSecond); 
+
+		~Rect()  {std::cout<<"\nDestructor was called.\n"}
 };
+
+Rect BoundingRect(Rect rFirst, Rect rSecond);
