@@ -15,19 +15,19 @@ class Rect{
 		void SetAll(int left, int right, int top, int bottom);
 
 		
-		int GetLeft()	{return m_left;}
+		int GetLeft()	const	{return m_left;}
 
-		int GetRight()	{return m_rght}
+		int GetRight()	const	{return m_rght}
 
-		int GetBottom()	{return m_bottom;}
+		int GetBottom()	const	{return m_bottom;}
 		
-		int GetTop()	{return m_top;}
+		int GetTop()	const	{return m_top;}
 
-		void PrintAll();
+		void PrintAll() const;
 
-		void BoundingRect(Rect rFirst, Rect rSecond); 
+		void BoundingRect(const Rect rFirst, const Rect rSecond); 
 
 		~Rect()  {std::cout<<"\nDestructor was called.\n"}
 };
 
-Rect BoundingRect(Rect rFirst, Rect rSecond);
+Rect BoundingRect(const Rect rFirst, const Rect rSecond);

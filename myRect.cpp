@@ -94,7 +94,7 @@ void Rect::SetAll(int left, int right, int top, int bottom)
 
 
 
-void Rect::PrintAll()
+void Rect::PrintAll() const
 {
 	std::cout<<'\n'<<"m_left = "  <<GetLeft()  <<'\n';
 	std::cout<<'\n'<<"m_right = " <<GetRight() <<'\n';
@@ -110,7 +110,7 @@ void Rect::PrintAll()
 
 
 
-void Rect::BoundingRect(Rect rFirst, Rect rSecond) //метод класса
+void Rect::BoundingRect(const Rect rFirst, const Rect rSecond) //метод класса
 {
 	int length,  width;
 
@@ -129,7 +129,7 @@ void Rect::BoundingRect(Rect rFirst, Rect rSecond) //метод класса
 
 
 
-Rect BoundingRect2(Rect &rFirst, Rect &rSecond) //глобальная функция 2 
+Rect BoundingRect2(const Rect &rFirst, const Rect &rSecond) //глобальная функция 2 
 {
 	int length,  width;
 
@@ -148,7 +148,7 @@ Rect BoundingRect2(Rect &rFirst, Rect &rSecond) //глобальная функ�
 
 
 
-Rect BoundingRect(Rect rFirst, Rect rSecond) //глобальная функция
+Rect BoundingRect(const Rect rFirst, const Rect rSecond) //глобальная функция
 {
 	int length,  width;
 
