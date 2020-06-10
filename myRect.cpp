@@ -46,3 +46,37 @@ void Rect::InflateRect(int fl_first=1, int fl_second=1)
 	InflateRect(fl_first, fl_second, 0, 0);
 
 }
+
+void Rect::SetAll(int left, int right, int top, int bottom)
+{
+	if
+	m_left=left;
+	m_right=right;
+	m_top=top;
+	m_bottom=bottom;
+}
+
+void Rect::SetAll(int left, int right, int top, int bottom)
+{
+	
+	if (left >= 0 && right >= 0 && top >= 0 && bottom >= 0)
+	{
+		m_left=left;
+		m_right=right;
+		m_top=top;
+		m_bottom=bottom;
+	}
+	else {
+		std::cout<<"\nUncorrect parameter(s)\n";
+	}
+	
+}
+
+
+void Rect::GetAll()
+{
+	std::cout<<'\n'<<"m_left = "  <<m_left<<'\n';
+	std::cout<<'\n'<<"m_right = " <<m_right<<'\n';
+	std::cout<<'\n'<<"m_top   = " <<m_top<<'\n';
+	std::cout<<'\n'<<"m_bottom = "<<m_bottom<<'\n';
+}
