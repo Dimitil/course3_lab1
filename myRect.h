@@ -1,33 +1,31 @@
 #pragma once
+#include <iostream>
+
 class Rect{
-		int m_left, m_right, m_top, m_bottom;
+		int m_x1, m_y1, m_x2, m_y2;
 
 	public:
-		Rect(int left=0, int right=0, int top=0, int bottom=0);
+		Rect(int x1=0, int y1=0, int x2=10, int y2=10);
 		
 		Rect(const Rect &r);
 
+
+		void normalize();
+
+
 		void InflateRect(int fl_left, int fl_right, int fl_top, int fl_bottom);
 
-		void InflateRect(int fl_first=1, int fl_second=1);
+		void InflateRect(int length=1, int width=1);
 
 
 		void SetAll(int left, int right, int top, int bottom);
 
-		
-		int GetLeft()	const	{return m_left;}
+		void GetAll(int& x1, int& y1, int& x2, int& y2) const;
 
-		int GetRight()	const	{return m_rght}
+		void BoundingRect(const Rect &rFirst, const Rect &rSecond); 
 
-		int GetBottom()	const	{return m_bottom;}
-		
-		int GetTop()	const	{return m_top;}
-
-		void PrintAll() const;
-
-		void BoundingRect(const Rect rFirst, const Rect rSecond); 
-
-		~Rect()  {std::cout<<"\nDestructor was called.\n"}
+		~Rect() { std::cout << "\nDestructor was called.\n"; }
 };
 
 Rect BoundingRect(const Rect rFirst, const Rect rSecond);
+Rect BoundingRect2(const Rect &rFirst, const Rect &rSecond);

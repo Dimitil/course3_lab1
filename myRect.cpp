@@ -2,39 +2,39 @@
 #include <iostream>
 #include <algorithm>
 
+void Rect::normalize()
+{
+	int x1 = m_x1;
+	int y1 = m_y1;
+	int x2 = m_x2;
+	int y2 = m_y2;
 
+	m_x1 = std::min(x1, x2);
+	m_x2 = std::max(x1, x2);
+	m_y1 = std::min(y1, y2);
+	m_y2 = std::max(y1, y2);
+}
 
 Rect::Rect(const Rect &r)
 {
-		std::cout << "\n.Was called COPY-constructor.\n";
-		m_left   = r.m_left;
-		m_right  = r.m_right;
-		m_top    = r.m_top;
-		m_bottom = r.m_bottom;
+		std::cout << "\nWas called COPY-constructor.\n";
+		m_x1  = r.m_x1;
+		m_y1  = r.m_y1;
+		m_x2  = r.m_x2;
+		m_y2  = r.m_y2;
 }
 
 
 //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
 
-Rect::Rect(int left, int right, int top, int bottom)
+Rect::Rect(int x1, int y1, int x2, int y2)
 {
-	if (left >= 0 && right >= 0 && top >= 0 && bottom >= 0)
-	{
-
-		std::cout << "\n.Was called DEFAULT-constructor.\n";
-		m_left   = left;
-		m_right  = right;
-		m_top    = top;
-		m_bottom = bottom;
-	}
-	else
-	{
-		std::cout << "\nWrong parameter(s).Was called default-constructor.\n";
-		m_left   = 0;
-		m_right  = 0;
-		m_top    = 0;
-		m_bottom = 0;
-	}
+		std::cout << "\nWas called DEFAULT-constructor.\n";
+		m_x1 = x1;
+		m_y1 = y1;
+		m_x2 = x2;
+		m_y2 = y2;
+		normalize();
 }
 
 
@@ -43,63 +43,26 @@ Rect::Rect(int left, int right, int top, int bottom)
 
 
 
-void Rect::InflateRect(int fl_left, int fl_right, int fl_top, int fl_bottom)
+void Rect::InflateRect(int length_left, int width_up, int length_right, int width_down)
 {
-	m_top    += (fl_left+fl_right);
-	m_bottom += (fl_left+fl_right);
-	m_left   += (fl_top+fl_bottom);
-	m_left   += (fl_top+fl_bottom);
+	m_x1 -= length_left;
+	m_y1 -= width_up;
+	m_x2 += length_right;
+	m_y2 += width_down;
+
+	normalize();
 }
 
 
 //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
 
 
-void Rect::InflateRect(int length=1, int width=1)
+void Rect::InflateRect(int length, int width)
 {
 
-	InflateRect(length, length, width, width);
-
-}
-
-
-
-
-//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
-
-
-
-void Rect::SetAll(int left, int right, int top, int bottom)
-{
+	InflateRect(length/2, length/2, width/2, width/2);
 	
-	if (left >= 0 && right >= 0 && top >= 0 && bottom >= 0)
-	{
-		m_left=left;
-		m_right=right;
-		m_top=top;
-		m_bottom=bottom;
-	}
-	else {
-		std::cout<<"\nUncorrect parameter(s)\n";
-	}
-	
-}
 
-
-
-
-
-//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
-
-
-
-
-void Rect::PrintAll() const
-{
-	std::cout<<'\n'<<"m_left = "  <<GetLeft()  <<'\n';
-	std::cout<<'\n'<<"m_right = " <<GetRight() <<'\n';
-	std::cout<<'\n'<<"m_top   = " <<GetTop()   <<'\n';
-	std::cout<<'\n'<<"m_bottom = "<<GetBottom()<<'\n';
 }
 
 
@@ -109,20 +72,47 @@ void Rect::PrintAll() const
 
 
 
-
-void Rect::BoundingRect(const Rect rFirst, const Rect rSecond) //метод класса
+void Rect::SetAll(int x1, int y1, int x2, int y2)
 {
-	int length,  width;
 
-	legth = max(rFirst.Top, rFirst.Bottom) + max(rSecond.Top, rSecond.Bottom);//sum of maximums
+		m_x1=x1;
+		m_y1=y1;
+		m_x2=x2;
+		m_y2=y2;
 
-	width = max(rFirst.Left, rFirst.Right, rSecond.Left, rSecond.Right);	//single max
+		normalize();
+}
 
-	SetAll(width, width, length, length);
+
+//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+
+
+
+void Rect::BoundingRect(const Rect &rFirst, const Rect &rSecond) //метод класса
+{
+	int resX1, resY1, resX2, resY2;
+
+	resX1 = std::min(rFirst.m_x1, rSecond.m_x2);
+	resY1 = std::min(rFirst.m_y1, rSecond.m_y2);
+	resX2 = std::max(rFirst.m_x1, rSecond.m_x2);
+	resY2 = std::max(rFirst.m_y1, rSecond.m_y2);
+
+	SetAll(resX1, resY1, resX2, resY2);
 }
 
 
 
+
+//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+
+
+void Rect::GetAll(int &x1, int &y1, int &x2, int &y2) const
+{
+	x1 = this->m_x1;
+	y1 = this->m_y1;
+	x2 = this->m_x2;
+	y2 = this->m_y2;
+}
 
 //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
 
@@ -131,13 +121,20 @@ void Rect::BoundingRect(const Rect rFirst, const Rect rSecond) //метод кл
 
 Rect BoundingRect2(const Rect &rFirst, const Rect &rSecond) //глобальная функция 2 
 {
-	int length,  width;
+	int resX1, resY1, resX2, resY2;
 
-	legth = max(rFirst.GetTop(), rFirst.GetBottom()) + max(rSecond.GetTop(), rSecond.GetBottom());//sum of maximums
+	int Fx1, Fy1, Fx2, Fy2;
+	int Sx1, Sy1, Sx2, Sy2;
 
-	width = max(rFirst.GetLeft(), rFirst.GetRight(),rSecond.GetLeft(),rSecond.GetRight);	//single max
+	rFirst.GetAll(Fx1, Fy1, Fx2, Fy2);
+	rSecond.GetAll(Sx1, Sy1, Sx2, Sy2);
 
-	return Rect(leght,length, width, width);
+	resX1 = std::min(Fx1, Sx2);
+	resY1 = std::min(Fy1, Sy2);
+	resX2 = std::max(Fx1, Sx2);
+	resY2 = std::max(Fy1, Sy2);
+
+	return Rect(resX1, resY1, resX2, resY2);
 }
 
 
@@ -148,13 +145,20 @@ Rect BoundingRect2(const Rect &rFirst, const Rect &rSecond) //глобальна
 
 
 
-Rect BoundingRect(const Rect rFirst, const Rect rSecond) //глобальная функция
+Rect BoundingRect(Rect rFirst, Rect rSecond) //глобальная функция
 {
-	int length,  width;
 
-	legth = max(rFirst.GetTop(), rFirst.GetBottom()) + max(rSecond.GetTop(), rSecond.GetBottom());//sum of maximums
+	int resX1, resY1, resX2, resY2;
 
-	width = max(rFirst.GetLeft(), rFirst.GetRight(),rSecond.GetLeft(),rSecond.GetRight);	//single max
+	int Fx1, Fy1, Fx2, Fy2;
+	int Sx1, Sy1, Sx2, Sy2;
 
-	return Rect(leght,length, width, width);
+	rFirst.GetAll(Fx1, Fy1, Fx2, Fy2);
+	rSecond.GetAll(Sx1, Sy1, Sx2, Sy2);
+	resX1 = std::min(Fx1, Sx2);
+	resY1 = std::min(Fy1, Sy2);
+	resX2 = std::max(Fx1, Sx2);
+	resY2 = std::max(Fy1, Sy2);
+
+	return Rect(resX1, resY1, resX2, resY2);
 }
