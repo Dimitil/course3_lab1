@@ -6,8 +6,8 @@ class MyString
 public:
 	MyString();
 	MyString(const char* str);
-
+	MyString(const MyString &MyStr);
 	~MyString();
-	const *char GetString() const	{if (!m_pStr) return const_cast <const*>  m_pStr; else return "#error#"}
- 
+	const *char GetString() const	{if (m_pStr) return const_cast <const*>  m_pStr; else return "#error#"}
+	void SetNewString(const char* NewString);
 };

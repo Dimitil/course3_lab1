@@ -186,6 +186,8 @@ using namespace std;
 		MyString	str("It's my string!");
 		//Создайте метод GetString(), который обеспечит доступ к хранящейся строке.
 		//С помощью cout и метода GetString() распечатайте строку объекта str
+		std::cout<<MyString.GetString();
+		
 		//Замечание: подумайте, как следует корректно реализовать метод GetString().
 
 		//...
@@ -197,7 +199,7 @@ using namespace std;
 	//неприятности Вас ожидают. Попробуйте исправить положение (как?)
 		{
 			MyString str1("The first string!");
-			MyString str2 = str1;
+			MyString str2 = str1;	//поверхностное копирование. Нужен копирующий конструктор
 		}
 		stop
 
