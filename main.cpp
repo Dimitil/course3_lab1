@@ -263,18 +263,19 @@ using namespace std;
 
 	std::cout << "\nZadanie#7\n";
 
-	bochka WithSpirt(100, 96);
-	bochka WithWater(100, 0);
+	bochka WithSpirt(100, 0.96);
+	bochka WithWater(100, 0.0);
 
 	int i = 0;
-	while (WithSpirt.getC_spirt() > 50)
+	while (WithSpirt.getC_spirt() > 0.5)
 	{
 		WithSpirt.pereliv(WithWater);
 		WithWater.pereliv(WithSpirt);
 		i++;
 	}
 	std::cout <<"Answer: need "<< i <<" iteracii.";
-
+	std::cout << WithWater.getC_spirt();
+	
 	return 0;
 
 }//end_main
